@@ -87,3 +87,42 @@ def test_quarantine():
         2,
         [5, 11, 4, 12]
     ) == "QUARANTINE"
+
+def test_invalid_door_count():
+    assert evaluate_locker(
+        "COLD_CHAIN",
+        5,
+        24,
+        -1,
+        []
+    ) == "INVALID_INPUT"
+
+
+def test_temperature_alert_low():
+    assert evaluate_locker(
+        "COLD_CHAIN",
+        1,
+        24,
+        2,
+        []
+    ) == "TEMP_ALERT"
+
+
+def test_low_abnormal_sensor():
+    assert evaluate_locker(
+        "COLD_CHAIN",
+        5,
+        24,
+        2,
+        [1]
+    ) == "SAFE"
+
+
+def test_temp_alert_not_overwritten():
+    assert evaluate_locker(
+        "COLD_CHAIN",
+        10,
+        24,
+        7,
+        [11, 12]
+    ) == "TEMP_ALERT"
